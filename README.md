@@ -1,4 +1,7 @@
 # GP-Tree: A Gaussian Process Classifier for Few-Shot Incremental Learning
+<p align="center"> 
+    <img src="./resources/cifa10_gp_tree.png" width="400">
+</p>
 Gaussian processes (GPs) are non-parametric, flexible, models that work well in many tasks. Combining GPs with deep learning methods via deep kernel learning (DKL) is especially compelling due to the strong representational power induced by the network. However, inference in GPs, whether with or without DKL, can be computationally challenging on large datasets. For this purpose, we proposed GP-Tree, a novel method for multi-class classification with Gaussian processes and DKL. We developed a tree-based hierarchical model in which each internal node of the tree fits a GP to the data using the Pólya-Gamma augmentation scheme. As a result, our method scales well with both the number of classes and data size. We demonstrated our method effectiveness against other Gaussian process training baselines, and we showed how our general GP approach is easily applied to incremental few-shot learning and achieves state-of-the-art performance.
 
 ### Instructions
@@ -15,4 +18,15 @@ pip install -e .
 ```bash
 cd FSCIL
 python trainer.py
+```
+
+### Citation
+Please cite this paper if you want to use it in your work,
+```
+@inproceedings{achituve2021gp,
+  title={GP-Tree: A Gaussian Process Classifier for Few-Shot Incremental Learning},
+  author={Achituve, Idan and Navon, Aviv and Yemini, Yochai and Chechik, Gal and Fetaya, Ethan},
+  booktitle={Proceedings of the Thirty-eighth International Conference on Machine Learning},
+  year={2021}
+}
 ```

@@ -3,6 +3,7 @@ from torch import nn
 from torch.distributions import MultivariateNormal
 from utils import *
 from GP_Tree.kernel_class import OneClassGPModel
+import torch.nn.functional as F
 
 
 class Likelihood(nn.Module):

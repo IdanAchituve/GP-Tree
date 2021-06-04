@@ -3,6 +3,7 @@ import pypolyagamma
 from gpytorch.utils.quadrature import GaussHermiteQuadrature1D
 from torch import nn
 from GP_Tree.kernel_class import OneClassGPModel
+import torch.nn.functional as F
 
 from utils import *
 

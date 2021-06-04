@@ -1,5 +1,5 @@
-from gp_tree.node import Node_VI, Node_Gibbs
-from gp_tree.class_splits import *
+from GP_Tree.node import Node_VI, Node_Gibbs
+from GP_Tree.class_splits import *
 from utils import (detach_to_numpy, pytorch_take, pytorch_take2)
 import logging
 from torch import nn

@@ -1,6 +1,6 @@
 import torch.nn as nn
 from backbone import ResNet18
-from gp_tree.tree import BinaryTree
+from GP_Tree.tree import BinaryTree
 from utils import *
 from sklearn.cluster import KMeans
 

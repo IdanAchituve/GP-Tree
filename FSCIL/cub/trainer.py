@@ -6,7 +6,7 @@ from tqdm import trange
 from utils import *
 from torchvision import transforms
 from FSCIL.cub.dataloader import CUB200_Indexed
-from gp_tree.Learner import ModelBinaryTree
+from GP_Tree.Learner import ModelBinaryTree
 from io import BytesIO
 
 torch.set_printoptions(profile="full")

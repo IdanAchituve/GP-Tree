@@ -2,7 +2,7 @@ from collections import namedtuple
 import pypolyagamma
 from gpytorch.utils.quadrature import GaussHermiteQuadrature1D
 from torch import nn
-from gp_tree.kernel_class import OneClassGPModel
+from GP_Tree.kernel_class import OneClassGPModel
 
 from utils import *
 

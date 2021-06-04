@@ -2,7 +2,7 @@ from gpytorch.utils.quadrature import GaussHermiteQuadrature1D
 from torch import nn
 from torch.distributions import MultivariateNormal
 from utils import *
-from gp_tree.kernel_class import OneClassGPModel
+from GP_Tree.kernel_class import OneClassGPModel
 
 
 class Likelihood(nn.Module):

@@ -4,9 +4,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from tqdm import trange
 from utils import *
-from torchvision import transforms
 from FSCIL.miniImageNet.dataloader import MiniImagenetEpisodes
-from gp_tree.Learner import ModelBinaryTree
+from GP_Tree.Learner import ModelBinaryTree
 from io import BytesIO
 
 torch.set_printoptions(profile="full")

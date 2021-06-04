@@ -3,7 +3,6 @@ from torchvision import transforms
 from PIL import Image
 import pandas as pd
 from sklearn.model_selection import train_test_split
-import logging
 from utils import *
 
 

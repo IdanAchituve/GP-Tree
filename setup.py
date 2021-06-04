@@ -23,7 +23,7 @@ def requirements():
 
 
 setup(
-      name='GP-Tree',
+      name='GP_Tree',
       version='1.0.0',  # Required
       description='GP-Tree: A Gaussian Process Classifier for Few-Shot Incremental Learning',  # Optional
       long_description='',  # Optional
@@ -31,7 +31,7 @@ setup(
       url='',  # Optional
       author='',  # Optional
       author_email='',  # Optional
-      packages=['GP-Tree'],
+      packages=['GP_Tree'],
       python_requires='>=3.5',
       install_requires=requirements()  # Optional
 )

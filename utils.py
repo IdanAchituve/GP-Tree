@@ -8,7 +8,6 @@ import os
 import json
 from pathlib import Path
 import sys
-import torch.nn.functional as F
 import warnings
 
 def set_seed(seed, cudnn_enabled=True):

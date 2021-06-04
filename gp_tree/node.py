@@ -1,5 +1,5 @@
-from FSCIL.tree_model.gp_model import GP_Model
-from FSCIL.tree_model.gp_model_gibbs import GP_Model_Gibbs
+from gp_tree.gp_model import GP_Model
+from gp_tree.gp_model_gibbs import GP_Model_Gibbs
 from torch import nn
 from utils import *
 

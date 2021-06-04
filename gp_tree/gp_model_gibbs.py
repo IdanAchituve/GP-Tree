@@ -2,13 +2,11 @@ from collections import namedtuple
 import pypolyagamma
 from gpytorch.utils.quadrature import GaussHermiteQuadrature1D
 from torch import nn
-import copy
-from torch.distributions import MultivariateNormal
-from FSCIL.tree_model.kernel_class import OneClassGPModel
+from gp_tree.kernel_class import OneClassGPModel
 
 from utils import *
 
-SBGibbsState = namedtuple("SBGibbsState", ["omega", "psi"])
+SBGibbsState = namedtuple("SBGibbsState", ["omega", "f"])
 SBModelState = namedtuple(
     "SBModelState",
     ["N", "N_sb", "mu", "K", "L", "Kinv", "Kinv_mu", "X", "Y", "C", "kappa"],
@@ -128,22 +126,22 @@ class GP_Model_Gibbs(nn.Module):
         # init to the prior mean
         SN = torch.normal(mean=torch.zeros(1 * ND * N, dtype=L.dtype, device=L.device),
                           std=torch.ones(1 * ND * N, dtype=L.dtype, device=L.device)).view(ND, N, 1)
-        psi_init = model_state.mu.unsqueeze(0) + L.matmul(SN)
-        psi_init = psi_init.squeeze(-1)
+        f_init = model_state.mu.unsqueeze(0) + L.matmul(SN)
+        f_init = f_init.squeeze(-1)
 
         # sample from prior C*N*ND variables
-        omega_init = self.sample_omega(psi_init, model_state)
+        omega_init = self.sample_omega(f_init, model_state)
 
-        return SBGibbsState(omega_init, psi_init)
+        return SBGibbsState(omega_init, f_init)
 
     def next_gibbs_state(self, model_state, gibbs_state):
-        psi_new = self.gaussian_conditional(gibbs_state.omega, model_state)
-        omega_new = self.sample_omega(psi_new, model_state)
+        f_new = self.gaussian_conditional(gibbs_state.omega, model_state)
+        omega_new = self.sample_omega(f_new, model_state)
 
-        return SBGibbsState(omega_new, psi_new)
+        return SBGibbsState(omega_new, f_new)
 
     # P(ω | Y, ψ)
-    def sample_omega(self, psi, model_state):
+    def sample_omega(self, f, model_state):
         """"
         Sample from polya-gamma distribution.
         :parm c - number of observations per sample
@@ -152,12 +150,12 @@ class GP_Model_Gibbs(nn.Module):
         N = model_state.N
 
         b = detach_to_numpy(model_state.N_sb).reshape(-1).astype(np.double)
-        c = detach_to_numpy(psi).reshape(-1).astype(np.double)
+        c = detach_to_numpy(f).reshape(-1).astype(np.double)
         ret = np.zeros_like(c)  # fill with samples
 
         self.ppg.pgdrawv(b, c, ret)
 
-        omega = torch.tensor(ret, dtype=psi.dtype, device=psi.device).view(self.num_draws, N)  # [ND, N]
+        omega = torch.tensor(ret, dtype=f.dtype, device=f.device).view(self.num_draws, N)  # [ND, N]
         return omega
 
     # P(ψ | Y, ω, X)
@@ -175,8 +173,8 @@ class GP_Model_Gibbs(nn.Module):
         mu_tilde = sigma_tilde.matmul(kappa.unsqueeze(-1) + Kinv_mu).squeeze(-1)
 
         L_tilde = psd_safe_cholesky(sigma_tilde)
-        psis = torch.distributions.MultivariateNormal(mu_tilde, scale_tril=L_tilde).rsample()
-        return psis
+        fs = torch.distributions.MultivariateNormal(mu_tilde, scale_tril=L_tilde).rsample()
+        return fs
 
     # ∑ (log(P(Y = c| ω, X)))
     def marginal_log_likelihood(self, omega, model_state):
@@ -289,4 +287,4 @@ class GP_Model_Gibbs(nn.Module):
                                     kappa=kappa
                                 )
         self.last_gibbs_state = SBGibbsState(gibbs_state.omega.detach().clone(),
-                                             gibbs_state.psi.detach().clone())
+                                             gibbs_state.f.detach().clone())

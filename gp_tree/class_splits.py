@@ -1,6 +1,4 @@
 import numpy as np
-#from experiments.cub_pretrained.hierarchical.minmax_kmeans import minsize_kmeans, compute_quality
-from sklearn.cluster import AgglomerativeClustering
 from sklearn.cluster import KMeans
 
 

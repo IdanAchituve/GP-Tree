@@ -5,8 +5,8 @@ from torch.utils.data import DataLoader
 from tqdm import trange
 from utils import *
 from torchvision import transforms
-from FSCIL.dataloader import CUB200_Indexed
-from FSCIL.Learner import ModelBinaryTree
+from FSCIL.cub.dataloader import CUB200_Indexed
+from gp_tree.Learner import ModelBinaryTree
 from io import BytesIO
 
 torch.set_printoptions(profile="full")
@@ -34,7 +34,7 @@ parser.add_argument('--optimizer', default='sgd', choices=['adam', 'sgd'], type=
 parser.add_argument('--momentum', type=float, default=0.9,
                     help='momentum value for optimizer, default is 0.9.')
 parser.add_argument('--base-lr', default=1e-2, type=float, help='learning rate')
-parser.add_argument('--natural-lr', default=.8, type=float,
+parser.add_argument('--natural-lr', default=.05, type=float,
                     help='natural GA learning rate. If not using stochastic updates - may use a value of 1.')
 parser.add_argument('--wd', default=1e-4, type=float, help='weight decay')
 parser.add_argument('--batch-size', type=int, default=128, help='batch size')
@@ -53,7 +53,7 @@ parser.add_argument('--gibbs-outputscale', type=float, default=8., help='output 
 parser.add_argument('--gibbs-lengthscale', type=float, default=1., help='length scale')
 parser.add_argument('--outputscale', type=float, default=4., help='output scale')
 parser.add_argument('--lengthscale', type=float, default=1., help='length scale')
-parser.add_argument('--eval-every', type=int, default=1, help='num. epochs between test set eval')
+parser.add_argument('--eval-every', type=int, default=10, help='num. epochs between test set eval')
 parser.add_argument('--out-dir', type=str, default='./outputs', help='Output dir')
 parser.add_argument('--seed', default=42, type=int, help='random seed')
 parser.add_argument('--num-workers', default=4, type=int, help='num wortkers')
@@ -106,7 +106,7 @@ def create_data_loaders():
     num_sessions = args.num_sessions + 1
     for i in range(1, num_sessions + 1):
         trainset_novel = CUB200_Indexed(logger=logging, root=dataset_path, dataset='train',
-                                        transform=transform_train, session=i, val_indices_path='./val_indices')
+                                        transform=transform_train, session=i, val_indices_path='val_indices')
         # drop last needs to be False to accommodate for few shot sessions
         train_loaders.append(DataLoader(trainset_novel, batch_size=batch_size, num_workers=args.num_workers,
                                   shuffle=True, drop_last=False))
@@ -114,7 +114,7 @@ def create_data_loaders():
         # validation loader only for base classes
         if i == 1:
             valset_novel = CUB200_Indexed(logger=logging, root=dataset_path, dataset='val',
-                                          transform=transform_test, session=i, val_indices_path='./val_indices')
+                                          transform=transform_test, session=i, val_indices_path='val_indices')
             base_val_loader = DataLoader(valset_novel, batch_size=test_batch_size, num_workers=args.num_workers)
 
         testset_novel = CUB200_Indexed(logger=logging, root=dataset_path, dataset='test',

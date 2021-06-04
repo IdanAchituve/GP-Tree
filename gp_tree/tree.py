@@ -1,11 +1,10 @@
-from FSCIL.tree_model.node import Node_VI, Node_Gibbs
-from FSCIL.tree_model.class_splits import *
+from gp_tree.node import Node_VI, Node_Gibbs
+from gp_tree.class_splits import *
 from utils import (detach_to_numpy, pytorch_take, pytorch_take2)
 import logging
 from torch import nn
 import torch
 from collections import deque
-import copy
 
 
 class BinaryTree(nn.Module):

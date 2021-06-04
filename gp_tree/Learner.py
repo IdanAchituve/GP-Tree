@@ -1,6 +1,6 @@
 import torch.nn as nn
-from FSCIL.backbone import ResNet18
-from FSCIL.tree_model.tree import BinaryTree
+from backbone import ResNet18
+from gp_tree.tree import BinaryTree
 from utils import *
 from sklearn.cluster import KMeans
 
@@ -41,9 +41,9 @@ class Model(nn.Module):
 
 
 class ModelBinaryTree(Model):
-    def __init__(self, args, device):
+    def __init__(self, args, device, pretrained=True):
         super(ModelBinaryTree, self).__init__(args)
-        self.features = ResNet18(dims=args.NN_layers + [args.N_way[0]], args=args)
+        self.features = ResNet18(dims=args.NN_layers + [args.N_way[0]], args=args, pretrained=pretrained)
         Xbar_dim = (sum(self.args.N_way), self.args.num_inducing_points, self.args.NN_layers[-1])
         if self.args.learn_location:
             self.Xbar = nn.Parameter(torch.randn(Xbar_dim), requires_grad=True)

@@ -1,8 +1,0 @@
-README.md
-setup.py
-gp_tree/__init__.py
-gp_tree.egg-info/PKG-INFO
-gp_tree.egg-info/SOURCES.txt
-gp_tree.egg-info/dependency_links.txt
-gp_tree.egg-info/requires.txt
-gp_tree.egg-info/top_level.txt

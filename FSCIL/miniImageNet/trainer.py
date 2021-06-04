@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(description='FSCIL GP - trainer')
 parser.add_argument('--script-name', default='miniImageNet')
 parser.add_argument('--exp-name', type=str, default='', metavar='N',
                     help='experiment name suffix')
-parser.add_argument('--num-sessions', type=int, default=10, help='Number of few shot sessions')
+parser.add_argument('--num-sessions', type=int, default=8, help='Number of few shot sessions')
 parser.add_argument('--N-way', type=lambda s: [int(item.strip()) for item in s.split(',')],
                     default='60,5,5,5,5,5,5,5,5',
                     help='number of classes per session')

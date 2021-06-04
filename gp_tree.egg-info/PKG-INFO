@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: gp-tree
+Version: 1.0.0
+Summary: GP-Tree: A Gaussian Process Classifier for Few-Shot Incremental Learning
+Home-page: UNKNOWN
+Author: 
+Author-email: 
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown

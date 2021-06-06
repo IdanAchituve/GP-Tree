@@ -14,8 +14,8 @@ pip install -e .
 ```
 
 ### Download data:
-1. Download the data:
-    a. CUB-200-2011 is available at: http://www.vision.caltech.edu/visipedia/CUB-200-2011.html
+1. Download the data:  
+    a. CUB-200-2011 is available at: http://www.vision.caltech.edu/visipedia/CUB-200-2011.html  
     b. mini-ImageNet can be obtained at: https://drive.google.com/u/0/uc?id=0B3Irx3uQNoBMQ1FlNXJsZUdYWEE
 2. Place the data under ./FSCIL/xxx/dataset, where xxx is either cub or miniImageNet.
 
@@ -26,7 +26,7 @@ python trainer.py
 ```
 
 ### Citation
-Please cite this paper if you want to use it in your work,
+Please cite our paper if you want to use it in your work,
 ```
 @inproceedings{achituve2021gp,
   title={GP-Tree: A Gaussian Process Classifier for Few-Shot Incremental Learning},

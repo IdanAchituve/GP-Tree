@@ -28,10 +28,12 @@ python trainer.py
 ### Citation
 Please cite this paper if you want to use it in your work,
 ```
-@inproceedings{achituve2021gp,
-  title={GP-Tree: A Gaussian Process Classifier for Few-Shot Incremental Learning},
-  author={Achituve, Idan and Navon, Aviv and Yemini, Yochai and Chechik, Gal and Fetaya, Ethan},
-  booktitle={Proceedings of the Thirty-eighth International Conference on Machine Learning},
-  year={2021}
+@InProceedings{achituve2021gp_icml,
+  title = {{GP}-{T}ree: A {G}aussian Process Classifier for Few-Shot Incremental Learning},
+  author = {Achituve, Idan and Navon, Aviv and Yemini, Yochai and Chechik, Gal and Fetaya, Ethan},
+  booktitle = {Proceedings of the 38th International Conference on Machine Learning},
+  pages = {54--65},
+  year = {2021},
+  publisher = {PMLR},
 }
 ```

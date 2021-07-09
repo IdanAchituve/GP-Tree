@@ -71,7 +71,7 @@ class GP_Model_Gibbs(nn.Module):
 
     def predictive_posterior(self, X_star):
         dist = self.predictive_dist(self.last_model_state, self.last_gibbs_state, X_star)
-        probs = torch.exp(self.quadrature(F.logsigmoid, dist)).mean(0)
+        probs = self.quadrature(torch.sigmoid, dist).mean(0)
         return probs
 
     def fit(self, X, Y):
@@ -130,7 +130,6 @@ class GP_Model_Gibbs(nn.Module):
         f_init = model_state.mu.unsqueeze(0) + L.matmul(SN)
         f_init = f_init.squeeze(-1)
 
-        # sample from prior C*N*ND variables
         omega_init = self.sample_omega(f_init, model_state)
 
         return SBGibbsState(omega_init, f_init)
@@ -141,7 +140,7 @@ class GP_Model_Gibbs(nn.Module):
 
         return SBGibbsState(omega_new, f_new)
 
-    # P(ω | Y, ψ)
+    # P(ω | Y, f)
     def sample_omega(self, f, model_state):
         """"
         Sample from polya-gamma distribution.
@@ -159,7 +158,7 @@ class GP_Model_Gibbs(nn.Module):
         omega = torch.tensor(ret, dtype=f.dtype, device=f.device).view(self.num_draws, N)  # [ND, N]
         return omega
 
-    # P(ψ | Y, ω, X)
+    # P(f | Y, ω, X)
     def gaussian_conditional(self, omega, model_state):
         kappa = model_state.kappa.t()
         Ω = torch.diag_embed(omega)
@@ -212,7 +211,7 @@ class GP_Model_Gibbs(nn.Module):
         mll = - mll.mean()
         return mll
 
-    # P(ψ^* | ω, Y, x^*, X)) & P(y^* | ψ^*)
+    # P(f^* | ω, Y, x^*, X)) & P(y^* | f^*)
     def predictive_dist(self, model_state, gibbs_state, X_star):
         """
         Compute predictive posterior mean and covariance

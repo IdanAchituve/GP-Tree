@@ -33,7 +33,7 @@ parser.add_argument('--optimizer', default='sgd', choices=['adam', 'sgd'], type=
 parser.add_argument('--momentum', type=float, default=0.9,
                     help='momentum value for optimizer, default is 0.9.')
 parser.add_argument('--base-lr', default=1e-1, type=float, help='learning rate')
-parser.add_argument('--natural-lr', default=.05, type=float,
+parser.add_argument('--natural-lr', default=.1, type=float,
                     help='natural GA learning rate. If not using stochastic updates - may use a value of 1.')
 parser.add_argument('--wd', default=1e-4, type=float, help='weight decay')
 parser.add_argument('--batch-size', type=int, default=128, help='batch size')

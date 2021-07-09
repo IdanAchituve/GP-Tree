@@ -14,9 +14,9 @@ class Likelihood(nn.Module):
     def forward(self, function_samples):
         return torch.sigmoid(function_samples)
 
-    def expected_log_prob(self, function_dist):
-        log_prob = self.quadrature(F.logsigmoid, function_dist)
-        return log_prob
+    def expected_prob(self, function_dist):
+        prob = self.quadrature(torch.sigmoid, function_dist)
+        return prob
 
 
 def _triangular_inverse(A, upper=False):
@@ -165,5 +165,5 @@ class GP_Model(nn.Module):
 
         L_s = psd_safe_cholesky(torch.diag_embed(Sigma_s))
         dist = MultivariateNormal(mu_s, scale_tril=L_s)
-        log_probs = self.likelihood.expected_log_prob(dist)
-        return torch.exp(log_probs)
+        probs = self.likelihood.expected_prob(dist)
+        return probs

@@ -16,7 +16,7 @@ pip install -e .
 ### Download data:
 1. Download the data:  
     a. CUB-200-2011 is available for download through: http://www.vision.caltech.edu/datasets/  
-    b. mini-ImageNet can be obtained at: https://drive.google.com/u/0/uc?id=0B3Irx3uQNoBMQ1FlNXJsZUdYWEE
+    b. mini-ImageNet can be obtained at online sources.
 2. Place the data under ./FSCIL/xxx/dataset, where xxx is either cub or miniImageNet.
 
 ### Run code:
